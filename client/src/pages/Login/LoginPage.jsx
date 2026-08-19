@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Layers, Mail, Lock, AlertCircle, ArrowRight, Loader2 } from 'lucide-react';
+import { Layers, Mail, Lock, AlertCircle, CheckCircle2, ArrowRight, Loader2 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
 const loginValidationSchema = z.object({
@@ -15,8 +15,10 @@ export const LoginPage = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const [searchParams] = useSearchParams();
   const [serverError, setServerError] = useState('');
 
+  const isNewlyRegistered = searchParams.get('registered') === 'true';
   const from = location.state?.from?.pathname || '/';
 
   const {
@@ -53,6 +55,13 @@ export const LoginPage = () => {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4 sm:px-0">
         <div className="bg-slate-900/90 border border-slate-800 py-8 px-6 shadow-2xl rounded-2xl sm:px-10 backdrop-blur-xl">
+          {isNewlyRegistered && !serverError && (
+            <div className="mb-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm flex items-start gap-3 shadow-sm">
+              <CheckCircle2 className="w-5 h-5 shrink-0 mt-0.5" />
+              <span>Account created successfully! Please sign in with your email and password.</span>
+            </div>
+          )}
+
           {serverError && (
             <div className="mb-6 p-4 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-sm flex items-start gap-3">
               <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />

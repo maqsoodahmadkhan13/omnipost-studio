@@ -55,7 +55,7 @@ export const RegisterPage = () => {
     setServerError('');
     try {
       await registerUser(data);
-      navigate('/', { replace: true });
+      navigate('/login?registered=true', { replace: true });
     } catch (err) {
       setServerError(err.message || 'Registration failed. Please try again.');
     }

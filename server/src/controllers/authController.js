@@ -24,17 +24,19 @@ export const register = async (req, res, next) => {
       timezone: timezone || 'UTC'
     });
 
-    const token = generateToken(user._id);
-    setAuthCookie(res, token);
-
     logger.info(`User registered successfully`, { userId: user._id, email: user.email });
 
     res.status(201).json({
       success: true,
-      message: 'Registration successful',
+      message: 'Registration successful. Please sign in with your credentials.',
       data: {
-        user,
-        token
+        user: {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+          timezone: user.timezone,
+          createdAt: user.createdAt
+        }
       }
     });
   } catch (error) {

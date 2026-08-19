@@ -38,9 +38,8 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (userData) => {
     const res = await api.post('/auth/register', userData);
-    if (res.data?.success && res.data.data?.user) {
-      setUser(res.data.data.user);
-      return res.data.data.user;
+    if (res.data?.success) {
+      return res.data;
     }
     throw new Error(res.data?.message || 'Registration failed');
   };
