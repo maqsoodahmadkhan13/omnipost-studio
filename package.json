@@ -1,0 +1,31 @@
+{
+  "name": "omnipost-studio",
+  "version": "1.0.0",
+  "description": "Minimalist centralized multi-account social media publishing and scheduling platform",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
+    "dev:all": "concurrently \"npm run server:dev\" \"npm run worker:dev\" \"npm run client:dev\"",
+    "server": "npm run start --prefix server",
+    "server:dev": "npm run dev --prefix server",
+    "worker": "npm run worker --prefix server",
+    "worker:dev": "npm run worker:dev --prefix server",
+    "client": "npm run build --prefix client",
+    "client:dev": "npm run dev --prefix client",
+    "install:all": "npm install && npm install --prefix server && npm install --prefix client"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "keywords": [
+    "social-media",
+    "scheduler",
+    "publisher",
+    "bullmq",
+    "redis",
+    "imagekit",
+    "mern"
+  ],
+  "author": "",
+  "license": "ISC"
+}
